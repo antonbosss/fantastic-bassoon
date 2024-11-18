@@ -19,7 +19,7 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 
 ## Table of contents
 1) [**Smart Contract Addresses**](#smart-contract-addresses)
-3) [**Delegate Appointment**](#delegate-appointment)
+3) [**Delegate Contract**](#delegate-appointment)
 4) [**Compute Contract Allowance**](#compute-contract-allowance)
 5) [**Delegate Transaction Execution**](#delegate-transaction-execution)
 6) [**Rules List**](#rules-list)
@@ -46,16 +46,15 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 - Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
 - MOR: [**0x34a285a1b1c166420df5b6630132542923b5b27e**](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
 
-Delegation testing video
-https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
-https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd
-https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43
-
+Delegation testing video:  
+- https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
+- https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd
+- https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43
 
 ---
 
-## Delegate Appointment
-1. Open the smart contract [0x00000000000000447e69651d841bD8D104Bed493](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains), 
+## Delegate Contract
+1. Open the [Delegate Registry smart contract](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains)
 2. Go to the section with the contract, write functions.
 3. Call the `delegateContract()` function that will assign a delegate to the transaction sender.
    Parameters:
@@ -68,6 +67,7 @@ https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41
 > [!TIP]
 > For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: the address from which the delegation function was called. The rest of the parameters are the same as you specified when delegating.
 
+---
 
 ## Compute Contract Allowance
 The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call `approve()` on the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e), specify the number of tokens (in wei) and the protocol address. 
@@ -78,6 +78,7 @@ At this point, the configuration of the delegate is complete. Further transactio
 > [!TIP]
 > You can check the permission by calling the `allowance()` function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
 
+---
 
 ## Delegate Transaction Execution
 Morpheus-Lumerin Compute architecture based on proxy contracts. This means that users cannot call all protocol methods through the block explorer.   
@@ -114,6 +115,7 @@ https://sepolia.arbiscan.io/tx/0xc2cb571edd6b721f6c2d83717ec4aa8008ce65001334c4c
 
 The rest of the functionality works according to a similar principle.
 
+---
 
 ## Rules List 
 Choose one according to needs:
@@ -123,6 +125,7 @@ Choose one according to needs:
 - 0xe0e347f99bca6ace06441ab53f851efe66ec57205ae2812242ccddb7923a8a79: interaction with marketplace functionality;
 - 0xbb0b3346f3a62a3cf205ec3a488d79de48762f0ab35cbf72aaf290fde72d79f5: interaction with sessions functionality.
 
+---
 
 ## ABIs List
 
