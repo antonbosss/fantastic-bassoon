@@ -19,9 +19,9 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 
 ## Table of contents
 1) [**Smart Contract Addresses**](#smart-contract-addresses)
-3) [**Delegate Appointment**](#stake-сode-mor-rewards)
-4) [**Allowance for the Compute Contract**](#check-power-factor-multiplier)
-5) [**Execution of a Transaction by a Delegate**](#check-mor-rewards-stake-time)
+3) [**Delegate Appointment**](#delegate-appointment)
+4) [**Compute Contract Allowance**](#compute-contract-allowance)
+5) [**Delegate Transaction Execution**](#delegate-transaction-execution)
 6) [**Rules List**](#rules-list)
 7) [**ABIs List**](#additional-guide-links)
 
@@ -69,7 +69,7 @@ https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41
 > For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: the address from which the delegation function was called. The rest of the parameters are the same as you specified when delegating.
 
 
-## Allowance for the Compute Contract
+## Compute Contract Allowance
 The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call `approve()` on the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e), specify the number of tokens (in wei) and the protocol address. 
 
 At this point, the configuration of the delegate is complete. Further transactions need to be executed by the delegate.
@@ -79,7 +79,7 @@ At this point, the configuration of the delegate is complete. Further transactio
 > You can check the permission by calling the `allowance()` function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
 
 
-## Execution of a Transaction by a Delegate
+## Delegate Transaction Execution
 Morpheus-Lumerin Compute architecture based on proxy contracts. This means that users cannot call all protocol methods through the block explorer.   
 For that we need to use:
 a) console 
