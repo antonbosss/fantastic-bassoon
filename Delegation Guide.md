@@ -8,6 +8,11 @@ The delegation functionality will allow transactions to be performed in place of
 Use mainnet or testnet addresses depending on the network. This example is for the testnet.
 
 
+MOR is required to Stake towards each Subnets for them to increase their "rank" with the Router and odds of getting matched to a user.
+
+Subnets may open the ability for MOR holders to Stake toward their Subnets and share the rewards (still under development). 
+
+
 ## Contract addresses
 
 #### Arbitrum Mainnet
