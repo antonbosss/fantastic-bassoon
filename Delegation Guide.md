@@ -1,37 +1,38 @@
 # MOR Delegation Guide
 ## Introduction
-The delegation functionality will allow transactions to be performed in place of the user within the protocol. This means that:
-- a “hot wallet” or delegate will be able to interact with the protocol instead of the user;
-- the user's funds are NOT transferred to the delegate's balance;
-- the delegate can only transfer user funds in the protocol.
+[A Morpheus Compute Subnet](/!KEYDOCS%20README%20FIRST!/Compute%20Providers/Compute%20Node/Subnets.md ) is a specialized Compute Provider that offers "Inference" services (LLM and Diffusion Models) to users within the Morpheus ecosystem. To create a subnet, providers must stake a minimum of 10,000 MOR. This staking requirement ensures that only dedicated providers, who have made significant investments in both hardware and MOR tokens, can participate. This reduces the risk of bad actors entering the marketplace.
 
-Use mainnet or testnet addresses depending on the network. This example is for the testnet.
+Additionally, MOR staked toward each subnet increases its "rank" with the Router, enhancing the likelihood of being matched with users. This creates natural economic incentives for subnets to attract MOR and share rewards with MOR holders.
 
+---
 
-MOR is required to Stake towards each Subnets for them to increase their "rank" with the Router and odds of getting matched to a user.
+## Table of contents
+1) [**Smart Contract Addresses**](#smart-contract-addresses)
+2) [**Delegate Appointment**](#stake-сode-mor-rewards)
+3) [**Allowance for the Diamond contractr**](#check-power-factor-multiplier)
+4) [**Check MOR Rewards Stake Time**](#check-mor-rewards-stake-time)
+5) [**Additional Guide links**](#additional-guide-links)
 
-Subnets may open the ability for MOR holders to Stake toward their Subnets and share the rewards (still under development). 
-
-
-## Contract addresses
+--- 
+## Smart Contract Addresses
 
 #### Arbitrum Mainnet
-- Lumerin Diamond contract: [0xDE819AaEE474626E3f34Ef0263373357e5a6C71b](https://arbiscan.io/address/0xDE819AaEE474626E3f34Ef0263373357e5a6C71b)
-- Provider Registry: [0x8621E6b808A3d925533446B767B7BCA6ACCb62a2](https://arbiscan.io/address/0x8621E6b808A3d925533446B767B7BCA6ACCb62a2)
-- Model Registry: [0x2E96cEF46D2a82e63570b538EF4aB697a09a3996](https://arbiscan.io/address/0x2E96cEF46D2a82e63570b538EF4aB697a09a3996)
-- Marketplace: [0xc371404682A2E02C3b46814261BEE615E57F48a8](https://arbiscan.io/address/0xc371404682A2E02C3b46814261BEE615E57F48a8) 
-- Session Router: [0xAB493D93Bd9C93C7590865df82F4e09F3dF96D4C](https://arbiscan.io/address/0xAB493D93Bd9C93C7590865df82F4e09F3dF96D4C)
-- Delegate Registry: [0x00000000000000447e69651d841bD8D104Bed493](https://arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
-- MOR: [0x092baadb7def4c3981454dd9c0a0d7ff07bcfc86](https://arbiscan.io/address/0x092bAaDB7DEf4C3981454dD9c0A0D7FF07bCFc86)
+- Lumerin Diamond contract: [**0xDE819AaEE474626E3f34Ef0263373357e5a6C71b**](https://arbiscan.io/address/0xDE819AaEE474626E3f34Ef0263373357e5a6C71b)
+- Provider Registry: [**0x8621E6b808A3d925533446B767B7BCA6ACCb62a2**](https://arbiscan.io/address/0x8621E6b808A3d925533446B767B7BCA6ACCb62a2)
+- Model Registry: [**0x2E96cEF46D2a82e63570b538EF4aB697a09a3996**](https://arbiscan.io/address/0x2E96cEF46D2a82e63570b538EF4aB697a09a3996)
+- Marketplace: [**0xc371404682A2E02C3b46814261BEE615E57F48a8**](https://arbiscan.io/address/0xc371404682A2E02C3b46814261BEE615E57F48a8) 
+- Session Router: [**0xAB493D93Bd9C93C7590865df82F4e09F3dF96D4C**](https://arbiscan.io/address/0xAB493D93Bd9C93C7590865df82F4e09F3dF96D4C)
+- Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
+- MOR: [**0x092baadb7def4c3981454dd9c0a0d7ff07bcfc86**](https://arbiscan.io/address/0x092bAaDB7DEf4C3981454dD9c0A0D7FF07bCFc86)
 
 #### Arbitrum Sepolia (testnet)
-- Lumerin Diamond contract: [0xb8C55cD613af947E73E262F0d3C54b7211Af16CF](https://sepolia.arbiscan.io/address/0xb8C55cD613af947E73E262F0d3C54b7211Af16CF) 
-- Provider Registry: [0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F](https://sepolia.arbiscan.io/address/0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F)
-- Model Registry: [0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0](https://sepolia.arbiscan.io/address/0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0)
-- Marketplace: [0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7](https://sepolia.arbiscan.io/address/0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7) 
-- Session Router: [0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13](https://sepolia.arbiscan.io/address/0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13) 
-- Delegate Registry: [0x00000000000000447e69651d841bD8D104Bed493](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
-- MOR: [0x34a285a1b1c166420df5b6630132542923b5b27e](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
+- Lumerin Diamond contract: [**0xb8C55cD613af947E73E262F0d3C54b7211Af16CF**](https://sepolia.arbiscan.io/address/0xb8C55cD613af947E73E262F0d3C54b7211Af16CF) 
+- Provider Registry: [**0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F**](https://sepolia.arbiscan.io/address/0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F)
+- Model Registry: [**0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0**](https://sepolia.arbiscan.io/address/0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0)
+- Marketplace: [**0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7**](https://sepolia.arbiscan.io/address/0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7) 
+- Session Router: [**0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13**](https://sepolia.arbiscan.io/address/0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13) 
+- Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
+- MOR: [**0x34a285a1b1c166420df5b6630132542923b5b27e**](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
 
 
 
@@ -41,11 +42,22 @@ https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4a
 https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43
 
 
+---
+
+## Delegation Functionality
+While certain features are still under development, Morpheus has implemented a Delegation process that allows subnets to stake MOR on behalf of users within the protocol. This process ensures user convenience while maintaining fund security.
+
+Key points of the delegation process:
+
+A “hot wallet” or delegate interacts with the protocol on behalf of the user.
+User funds are NOT transferred to the delegate’s balance.
+The delegate can only transfer user funds within the Morpheus Compute contract, ensuring security and limiting misuse.
+This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 
 
 
 
-## Delegate appointment
+## Delegate Appointment
 Open the smart contract 0x00000000000000447e69651d841bD8D104Bed493 deployed by delegate.xyz in the desired network, go to the section with the contract, write functions. We need the delegateContract() function. Calling this function will assign a delegate to the transaction sender. Parameters:
 payable amount (delegateContract): 0;
 to (address): your delegator address;
@@ -58,7 +70,7 @@ enable (bool): true.
 
 
 
-## Add allowance for the lumerin protocol
+## Allowance for the Diamond Contract
 The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call approve() on the 0x34a285a1b1c166420df5b6630132542923b5b27e MOR contract, specify the number of tokens and the protocol address. You can check the permission by calling the allowance() function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
 
 At this point, the configuration of the delegate is complete. Further transactions will be executed by the delegate.
