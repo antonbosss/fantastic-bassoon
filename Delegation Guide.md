@@ -55,49 +55,60 @@ https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41
 ---
 
 ## Delegate Appointment
-Open the smart contract 0x00000000000000447e69651d841bD8D104Bed493 deployed by delegate.xyz in the desired network, go to the section with the contract, write functions. We need the delegateContract() function. Calling this function will assign a delegate to the transaction sender. Parameters:
-payable amount (delegateContract): 0;
-to (address): your delegator address;
-contract (address): lumerin protocol address;
-rights (bytes32): see rules below. If you are unsure or testing functionality, choose full rights (full protocol rights). With this parameter you can restrict the delegator's actions within the protocol, i.e., for example, allow opening sessions, but forbid creating models.
-enable (bool): true.
+1. Open the smart contract [0x00000000000000447e69651d841bD8D104Bed493](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains), 
+2. Go to the section with the contract, write functions.
+3. Call the `delegateContract()` function that will assign a delegate to the transaction sender.
+   Parameters:
+- `payable amount` (delegateContract): 0;
+- `to (address)`: your delegator address;
+- `contract (address)`: diamond protocol address;
+- `rights (bytes32)`: see rules below. If you are unsure or testing functionality, choose full rights (full protocol rights). With this parameter you can restrict the delegator's actions within the protocol, i.e., for - example, allow opening sessions, but forbid creating models.
+- `enable (bool)`: true.
 
 > [!TIP]
-> For additional verification, you can call checkDelegateForContract(). It should return “true”. Where “from”: the address from which the delegation function was called. The rest of the parameters are the same as you specified when delegating.
-
+> For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: the address from which the delegation function was called. The rest of the parameters are the same as you specified when delegating.
 
 
 ## Allowance for the Diamond Contract
-The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call approve() on the 0x34a285a1b1c166420df5b6630132542923b5b27e MOR contract, specify the number of tokens and the protocol address. You can check the permission by calling the allowance() function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
+The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call `approve()` on the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e), specify the number of tokens (in wei) and the protocol address. 
 
-At this point, the configuration of the delegate is complete. Further transactions will be executed by the delegate.
+At this point, the configuration of the delegate is complete. Further transactions need to be executed by the delegate.
+
+
+> [!TIP]
+> You can check the permission by calling the `allowance()` function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
+
 
 ## Execution of a transaction by a delegate
-We have a protocol based on proxy contracts. This means that we cannot call all protocol methods through the block explorer. For that we need to use a console or frontend or remix.
+Morpheus-Lumerin Compute architecture based on proxy contracts. This means that users cannot call all protocol methods through the block explorer.   
+For that we need to use:
+a) console 
+b) frontend 
+c) remix.
 
-To interact with the protocol, we will need an ABI. ABI can be used for both mainnet and testnet, it can be found here:
-ProviderRegistry: 0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F
-ModelRegistry: 0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0
-Marketplace: 0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7 
-SessionRouter: 0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13 
+To interact with the protocol, we will need an ABI. ABI can be used for both mainnet and testnet, it can be found in contracts:
+- ProviderRegistry: 0x5B4Eb8Ce68614ac9d63af035dF9Ce49cF497467F
+- ModelRegistry: 0xadA08ff9E0318dFfF0D02668C2815D0e5fCc1bC0
+- Marketplace: 0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7 
+- SessionRouter: 0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13 
 
-Depending on what you plan to do, you should choose an ABI. We will create the provider by the delegate, so we will take the ABI from the ProviderRegistry. Go to the Contract section and scroll down. Copy ABI.
+Depending on what you plan to do, you should choose an ABI. We will create the provider by the delegate, so we will take the ABI from the ProviderRegistry. 
 
-
-
-
-Open https://remix.ethereum.org. Open files tab (1). Create a ProviderRegistry.abi file in the “contracts” folder (2). Paste ABI to the new file (3). Keep this file open.
+1. Go to the Contract section and scroll down. Copy ABI.
 
 
+2. Open https://remix.ethereum.org. Open files tab (1). Create a ProviderRegistry.abi file in the “contracts” folder (2). Paste ABI to the new file (3). Keep this file open.
 
 
-Go to the deploy section (4). Connect your wallet with metamask (5), check the network in metamask. It will be displayed that the network is not correct (6), it's not a big deal, just close the network change window.
+3. Go to the deploy section (4). Connect your wallet with metamask (5), check the network in metamask. It will be displayed that the network is not correct (6), it's not a big deal, just close the network change window.
 Double-check that the delegate address has been connected.
 
 
-Next, enter the protocol address in the “At Address” field (1) and click this button (2). If everything was successful, you should see that the section of the deployed contracts has changed (3), our protocol and its functions have appeared.
+4. Next, enter the protocol address in the “At Address” field (1) and click this button (2). If everything was successful, you should see that the section of the deployed contracts has changed (3), our protocol and its functions have appeared.
 
-Next, open the provider registration function, fill in all the fields. Remember that in the “provider” field you should specify the actual address of the provider, and the caller will be the delegator. That is, the one who gave delegation rights will be the provider in our case. Next, confirm the transaction.
+5. Open the provider registration function, fill in all the fields. Remember that in the “provider” field you should specify the actual address of the provider, and the caller will be the delegator. That is, the one who gave delegation rights will be the provider in our case.
+
+6. Confirm the transaction.
 
 https://sepolia.arbiscan.io/tx/0xc2cb571edd6b721f6c2d83717ec4aa8008ce65001334c4c3a600a2cd89757133 - this is a delegate transaction, caller and provider do not match, tokens were transferred from the provider's address.
 
