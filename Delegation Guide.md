@@ -2,7 +2,7 @@
 ## Introduction
 [A Morpheus Compute Subnet](/!KEYDOCS%20README%20FIRST!/Compute%20Providers/Compute%20Node/Subnets.md ) is a specialized Compute Provider that offers "Inference" services (LLM and Diffusion Models) to users within the Morpheus ecosystem. To create a subnet, providers must stake a minimum of 10,000 MOR. This staking requirement ensures that only dedicated providers, who have made significant investments in both hardware and MOR tokens, can participate. This reduces the risk of bad actors entering the marketplace.
 
-Additionally, MOR staked toward each subnet increases its "rank" with the Router, enhancing the likelihood of being matched with users. This creates natural economic incentives for subnets to attract MOR and share rewards with MOR holders.
+Additionally, MOR staked toward each subnet increases its [Rank](https://docs.google.com/document/d/1jQPcGcjpO-vu9PTiMKyEqXOwRyuE_gzmQq56irXd3Zc/edit?tab=t.0#heading=h.m15gchuzoli8) with the Router, enhancing the likelihood of being matched with users. This creates natural economic incentives for subnets to attract MOR and share rewards with MOR holders.
 
 While MOR lend and borrow market is still under development, Morpheus has implemented a Delegation process that allows subnets to stake MOR on behalf of users within the protocol.
 
