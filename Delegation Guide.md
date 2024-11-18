@@ -4,14 +4,26 @@
 
 Additionally, MOR staked toward each subnet increases its "rank" with the Router, enhancing the likelihood of being matched with users. This creates natural economic incentives for subnets to attract MOR and share rewards with MOR holders.
 
+While MOR lend and borrow market is still under development, Morpheus has implemented a Delegation process that allows subnets to stake MOR on behalf of users within the protocol.
+
+This guide outlines the delegation process using the Arbitrum Sepolia testnet. 
+
+> [!IMPORTANT]
+> - A Subnet wallet interacts with the protocol on behalf of the user.
+>   
+> - User funds are **NOT** transferred to the delegate’s balance.
+>   
+> - The delegate can **ONLY** transfer user funds within the Morpheus Compute contract, ensuring security and limiting misuse.
+
 ---
 
 ## Table of contents
 1) [**Smart Contract Addresses**](#smart-contract-addresses)
-2) [**Delegate Appointment**](#stake-сode-mor-rewards)
-3) [**Allowance for the Diamond contractr**](#check-power-factor-multiplier)
-4) [**Check MOR Rewards Stake Time**](#check-mor-rewards-stake-time)
-5) [**Additional Guide links**](#additional-guide-links)
+2) [**Delegation Functionality**](#stake-сode-mor-rewards)
+3) [**Delegate Appointment**](#stake-сode-mor-rewards)
+4) [**Allowance for the Diamond contractr**](#check-power-factor-multiplier)
+5) [**Check MOR Rewards Stake Time**](#check-mor-rewards-stake-time)
+6) [**Additional Guide links**](#additional-guide-links)
 
 --- 
 ## Smart Contract Addresses
@@ -34,8 +46,6 @@ Additionally, MOR staked toward each subnet increases its "rank" with the Router
 - Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
 - MOR: [**0x34a285a1b1c166420df5b6630132542923b5b27e**](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
 
-
-
 Delegation testing video
 https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
 https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd
@@ -43,19 +53,6 @@ https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41
 
 
 ---
-
-## Delegation Functionality
-While certain features are still under development, Morpheus has implemented a Delegation process that allows subnets to stake MOR on behalf of users within the protocol. This process ensures user convenience while maintaining fund security.
-
-Key points of the delegation process:
-
-A “hot wallet” or delegate interacts with the protocol on behalf of the user.
-User funds are NOT transferred to the delegate’s balance.
-The delegate can only transfer user funds within the Morpheus Compute contract, ensuring security and limiting misuse.
-This guide outlines the delegation process using the Arbitrum Sepolia testnet.
-
-
-
 
 ## Delegate Appointment
 Open the smart contract 0x00000000000000447e69651d841bD8D104Bed493 deployed by delegate.xyz in the desired network, go to the section with the contract, write functions. We need the delegateContract() function. Calling this function will assign a delegate to the transaction sender. Parameters:
