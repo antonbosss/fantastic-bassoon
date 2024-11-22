@@ -25,6 +25,14 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 6) [**Rules List**](#rules-list)
 7) [**ABI List**](#abi-list)
 
+---
+
+## Delegation Video Guide
+The video guide contains all the steps described in textbelow
+- [Part 1](https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb) 
+- [Part 2](https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd) 
+- [Part 3](https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43) 
+
 --- 
 ## Smart Contract Addresses
 
@@ -46,11 +54,6 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 - Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
 - MOR: [**0x34a285a1b1c166420df5b6630132542923b5b27e**](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
 
-Delegation video guide:  
-
-- https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd
-- https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43
-
 ---
 
 ## Delegate Contract
@@ -67,22 +70,23 @@ This parameter restricts the delegatee's actions within the protocol, for - exam
 - `enable (bool)`: true.
 4. Click **"Write"** and confirm the transaction in your wallet.
 
-For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: Delegator's address, i.e. the address from which the delegation function was called. The rest of the parameters are the same as above.
-
-
 <img src="https://github.com/user-attachments/assets/d53cf0cc-3b5a-4247-a00e-3f2aacd2a90c" width=80% height=80%> 
 
-
 > [!TIP]
->  https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
+> For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: Delegator's address, i.e. the address from which the delegation function was called. The rest of the parameters are the same as above.
 
 ---
 
 ## Compute Contract Allowance
-The user needs to give permission to transfer tokens to the protocol, this step is pretty standard, you need to call `approve()` on the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e), specify the number of tokens (in wei) and the protocol address. 
+As the next step, the Delegator needs to give a permission to transfer MOR to the Compute contract. For this:
+1. Go to the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e) and connect your wallet.
+2. Open the **"Contract"** tab, then select the **"Write Contract"** tab.
+3. Call the `approve()` function and input the following parameters:
+- `spender (address)`: specify the amount of MOR) and the Compute contract address. 
+- `amount (uint256)`: MOR amount that's allowed to be transferred to the Compute contract (in [wei](https://etherscan.io/unitconverter).
+4. Click **"Write"** and confirm the transaction in your wallet.
 
-At this point, the configuration of the delegate is complete. Further transactions need to be executed by the delegate.
-
+<img src="https://github.com/user-attachments/assets/4b4ce221-560e-45fe-8ac4-dadc168a95b2" width=80% height=80%>
 
 > [!TIP]
 > You can check the permission by calling the `allowance()` function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
@@ -90,6 +94,7 @@ At this point, the configuration of the delegate is complete. Further transactio
 ---
 
 ## Delegate Transaction Execution
+At this point, the configuration of the delegate is complete. Further transactions need to be executed by the delegate.
 Morpheus-Lumerin Compute architecture based on proxy contracts. This means that users cannot call all protocol methods through the block explorer.   
 For that we need to use:
 a) console 
