@@ -125,18 +125,24 @@ For showcase purpose, Delegatee will create the provider with Delegator's MOR. F
 4. Go to the **"Deploy & run transaction"** section and connect your web3 wallet.
 5. Double check that correct Delegatee wallet is connected on the correct chain.
 
-<img src="https://github.com/user-attachments/assets/32e1c8dc-59b7-44ab-b4f8-96749b70d8c6" width=70% height=70%>
+<img src="https://github.com/user-attachments/assets/32e1c8dc-59b7-44ab-b4f8-96749b70d8c6" width=55% height=55%>
 
 6. Enter the Compute contract address in the **“At Address”** field and click the button.  
 If everything has done correctly you should see should see Compute contract and its functions under **"Deployed Contracts"** section.
 
-<img src="https://github.com/user-attachments/assets/06886fd4-40a7-4e8f-8126-37cdbb47a77c" width=70% height=70%>
+<img src="https://github.com/user-attachments/assets/06886fd4-40a7-4e8f-8126-37cdbb47a77c" width=50% height=50%>
 
-7. Open the provider registration function, fill in all the fields. Remember that in the “provider” field you should specify the actual address of the provider, and the caller will be the delegator. That is, the one who gave delegation rights will be the provider in our case.
+7. Open the provider registration function and and input the following parameters:
+- `provider_`: Delegator's address (the one who gave delegation rights);
+- `amount_`: provider registration price in wei, but no more than you approved at [Compute Contract Allowance](#compute-contract-allowance) step.
+- `endpoint_`: AAA.
 
-9. Confirm the transaction.
+<img src="https://github.com/user-attachments/assets/6046d1ac-c8a8-4856-88ca-6187d097343b" width=50% height=50%>
 
-https://sepolia.arbiscan.io/tx/0xc2cb571edd6b721f6c2d83717ec4aa8008ce65001334c4c3a600a2cd89757133 - this is a delegate transaction, caller and provider do not match, tokens were transferred from the provider's address.
+8. Click **"transact"** and confirm the transaction in your wallet.
+
+Here is the example transaction where caller and provider are different addresses and MOR were transferred from the Delegator's address.
+https://sepolia.arbiscan.io/tx/0xc2cb571edd6b721f6c2d83717ec4aa8008ce65001334c4c3a600a2cd89757133 - this is a delegate transaction, 
 
 The rest of the functionality works according to a similar principle.
 
