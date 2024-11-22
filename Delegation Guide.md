@@ -4,26 +4,26 @@
 
 Additionally, MOR staked toward each subnet increases its [Rank](https://docs.google.com/document/d/1jQPcGcjpO-vu9PTiMKyEqXOwRyuE_gzmQq56irXd3Zc/edit?tab=t.0#heading=h.m15gchuzoli8) with the Router, enhancing the likelihood of being matched with users. This creates natural economic incentives for subnets to attract MOR and share rewards with MOR holders.
 
-While MOR lend and borrow market is still under development, Morpheus has implemented a Delegation process that allows subnets to stake MOR on behalf of users within the protocol.
+While MOR lend and borrow market is still under development, Morpheus has implemented a Delegation process that allows subnets (**Delegatee**) to stake MOR on behalf of users (**Delegator**) within the protocol.
 
 This guide outlines the delegation process using the Arbitrum Sepolia testnet. 
 
 > [!IMPORTANT]
-> - A Subnet wallet interacts with the protocol on behalf of the user.
+> - A Subnet (Delegatee) wallet interacts with the protocol on behalf of the user (Delegator).
 >   
-> - User funds are **NOT** transferred to the delegate’s balance.
+> - Delegator funds are **NOT** transferred to the Delegatee’s balance.
 >   
-> - The delegate can **ONLY** transfer user funds within the Morpheus Compute contract, ensuring security and limiting misuse.
+> - The Delegatee can **ONLY** transfer Delegator funds within the Morpheus Compute contract, ensuring security and limiting misuse.
 
 ---
 
 ## Table of contents
 1) [**Smart Contract Addresses**](#smart-contract-addresses)
-3) [**Delegate Contract**](#delegate-appointment)
+3) [**Delegate Contract**](#delegate-contract)
 4) [**Compute Contract Allowance**](#compute-contract-allowance)
 5) [**Delegate Transaction Execution**](#delegate-transaction-execution)
 6) [**Rules List**](#rules-list)
-7) [**ABIs List**](#additional-guide-links)
+7) [**ABI List**](#abi-list)
 
 --- 
 ## Smart Contract Addresses
@@ -46,26 +46,35 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 - Delegate Registry: [**0x00000000000000447e69651d841bD8D104Bed493**](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493)
 - MOR: [**0x34a285a1b1c166420df5b6630132542923b5b27e**](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e)
 
-Delegation testing video:  
-- https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
+Delegation video guide:  
+
 - https://www.loom.com/share/851d97c803f042e59769280d4367ceb6?sid=5dbc6e8b-ed8e-4af9-945a-88786a6d2fcd
 - https://www.loom.com/share/3693904a0d334cf1aa0a45aced9915d4?sid=3884d026-c330-41eb-998e-89e9b96d4f43
 
 ---
 
 ## Delegate Contract
-1. Open the [Delegate Registry smart contract](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains)
-2. Go to the section with the contract, write functions.
-3. Call the `delegateContract()` function that will assign a delegate to the transaction sender.
-   Parameters:
-- `payable amount` (delegateContract): 0;
-- `to (address)`: your delegator address;
-- `contract (address)`: diamond protocol address;
-- `rights (bytes32)`: see [rules list](#rules-list). If you are unsure or testing functionality, choose full rights (full protocol rights). With this parameter you can restrict the delegator's actions within the protocol, i.e., for - example, allow opening sessions, but forbid creating models.
+This step performs by Delegator and will assign a contract Delegatee can interact with.
+The steps are: 
+1. Go to the [Delegate Registry smart contract](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains) and connect your wallet.
+2. Open the **"Contract"** tab, then select the **"Write Contract"** tab.
+3. Call the `delegateContract()` and input the following parameters:
+- `payable amount`: 0;
+- `to (address)`: Delegatee address (the address you want to delegate rights to);
+- `contract (address)`: Compute Contract address (for testnet it's 0xDE819AaEE474626E3f34Ef0263373357e5a6C71b);
+- `rights (bytes32)`: `0x0000000000000000000000000000000000000000000000000000000000000000` (full protocol rights);  
+This parameter restricts the delegatee's actions within the protocol, for - example, allow opening sessions, but forbid creating models. Here is the [rules list](#rules-list).
 - `enable (bool)`: true.
+4. Click **"Write"** and confirm the transaction in your wallet.
+
+For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: Delegator's address, i.e. the address from which the delegation function was called. The rest of the parameters are the same as above.
+
+
+<img src="https://github.com/user-attachments/assets/d53cf0cc-3b5a-4247-a00e-3f2aacd2a90c" width=80% height=80%> 
+
 
 > [!TIP]
-> For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: the address from which the delegation function was called. The rest of the parameters are the same as you specified when delegating.
+>  https://www.loom.com/share/9e266e1893a8488f952f1667680c27e4?sid=935720fb-c946-4a45-9e92-02f073c8e2cb
 
 ---
 
@@ -93,7 +102,8 @@ To interact with the protocol, we will need an ABI. ABI can be used for both mai
 - Marketplace: 0x19354CeF672bb57F1Eb9f422150e770CD9a2A3C7 
 - SessionRouter: 0xCc48cB2DbA21A5D36C16f6f64e5B5E138EA1ba13 
 
-Depending on what you plan to do, you should choose an ABI. We will create the provider by the delegate, so we will take the ABI from the ProviderRegistry. 
+Depending on what you plan to do, you should choose an ABI.  
+For showcase purpose, create the provider by the delegate, will be used. For this you need to take the ABI from the `ProviderRegistry`. 
 
 1. Go to the Contract section and scroll down. Copy ABI.
 
@@ -127,6 +137,6 @@ Choose one according to needs:
 
 ---
 
-## ABIs List
+## ABI List
 
 
