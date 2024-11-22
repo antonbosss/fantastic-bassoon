@@ -81,7 +81,7 @@ As the next step, the Delegator needs to give a permission to transfer MOR to th
 1. Go to the [MOR contract](https://sepolia.arbiscan.io/address/0x34a285a1b1c166420df5b6630132542923b5b27e) and connect your wallet.
 2. Open the **"Contract"** tab, then select the **"Write Contract"** tab.
 3. Call the `approve()` function and input the following parameters:
-- `spender (address)`: specify the amount of MOR) and the Compute contract address;
+- `spender (address)`: the Compute contract address;
 - `amount (uint256)`: MOR amount that's allowed to be transferred to the Compute contract (in [wei](https://etherscan.io/unitconverter)).
 4. Click **"Write"** and confirm the transaction in your wallet.
 
