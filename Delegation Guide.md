@@ -135,7 +135,7 @@ If everything has done correctly you should see should see Compute contract and 
 <img src="https://github.com/user-attachments/assets/06886fd4-40a7-4e8f-8126-37cdbb47a77c" width=50% height=50%>
 
 7. Open the provider registration function and and input the following parameters:
-- `provider_`: Delegator's address (the one who gave delegation rights);
+- `provider_`: Delegator's address (the one that gave delegation rights);
 - `amount_`: provider registration price in wei, but no more than you approved at [Compute Contract Allowance](#compute-contract-allowance) step.
 - `endpoint_`: AAA.
 
@@ -143,8 +143,8 @@ If everything has done correctly you should see should see Compute contract and 
 
 8. Click **"transact"** and confirm the transaction in your wallet.
 
-Here is the example transaction where caller and provider are different addresses and MOR were transferred from the Delegator's address.
-https://sepolia.arbiscan.io/tx/0xc2cb571edd6b721f6c2d83717ec4aa8008ce65001334c4c3a600a2cd89757133 - this is a delegate transaction, 
+Here is the example transaction where caller and provider are different addresses and MOR were transferred from the Delegator's address.  
+https://sepolia.arbiscan.io/tx/0x9ab24642a74bfe27ce905f569538c5cb1c428add55fd04c0469f959625742191
 
 The rest of the functionality works according to a similar principle.
 
