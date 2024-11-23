@@ -9,11 +9,11 @@ While MOR lend and borrow market is still under development, Morpheus has implem
 This guide outlines the delegation process using the Arbitrum Sepolia testnet. 
 
 > [!IMPORTANT]
-> - A Subnet (Delegatee) wallet interacts with the protocol on behalf of the user (Delegator).
+> - **A Subnet (Delegatee) wallet interacts with the protocol on behalf of the user (Delegator)**.
 >   
-> - Delegator funds are **NOT** transferred to the Delegatee’s balance.
+> - **Delegator funds are **NOT** transferred to the Delegatee’s balance.**
 >   
-> - The Delegatee can **ONLY** transfer Delegator funds within the Morpheus Compute contract, ensuring security and limiting misuse.
+> - **The Delegatee can **ONLY** transfer Delegator funds within the Morpheus Compute contract, ensuring security and limiting misuse.**
 
 ---
 
@@ -21,7 +21,7 @@ This guide outlines the delegation process using the Arbitrum Sepolia testnet.
 1) [**Smart Contract Addresses**](#smart-contract-addresses)
 3) [**Delegate Contract**](#delegate-contract)
 4) [**Compute Contract Allowance**](#compute-contract-allowance)
-5) [**Delegate Transaction Execution**](#delegate-transaction-execution)
+5) [**Delegatee Transaction Execution**](#delegatee-transaction-execution)
 6) [**Rules List**](#rules-list)
 
 ---
@@ -56,7 +56,7 @@ The video guide contains all the steps described in textbelow
 ---
 
 ## Delegate Contract
-This step performs by Delegator and will assign a contract Delegatee can interact with.
+This step performs by the Delegator and will assign a contract the Delegatee can interact with.
 The steps are: 
 1. Go to the [Delegate Registry smart contract](https://sepolia.arbiscan.io/address/0x00000000000000447e69651d841bD8D104Bed493) deployed by [delegate.xyz](https://delegate.xyz/) in the desired network (the same address for all chains) and connect your wallet.
 2. Open the **"Contract"** tab, then select the **"Write Contract"** tab.
@@ -64,15 +64,17 @@ The steps are:
 - `payable amount`: 0;
 - `to (address)`: Delegatee address (the address you want to delegate rights to);
 - `contract (address)`: Compute Contract address (for testnet it's 0xDE819AaEE474626E3f34Ef0263373357e5a6C71b);
-- `rights (bytes32)`: `0x0000000000000000000000000000000000000000000000000000000000000000` (full protocol rights);  
-This parameter restricts the delegatee's actions within the protocol, for - example, allow opening sessions, but forbid creating models. Here is the [rules list](#rules-list).
+- `rights (bytes32)`: `0x0000000000000000000000000000000000000000000000000000000000000000` (full protocol rights);
+  
+This parameter restricts the Delegatee's actions within the protocol, for example, allow opening sessions, but forbid creating models. Here is the [list](#rules-list) of available right options.
+
 - `enable (bool)`: true.
 4. Click **"Write"** and confirm the transaction in your wallet.
 
 <img src="https://github.com/user-attachments/assets/d53cf0cc-3b5a-4247-a00e-3f2aacd2a90c" width=80% height=80%> 
 
 > [!TIP]
-> For additional verification, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: Delegator's address, i.e. the address from which the delegation function was called. The rest of the parameters are the same as above.
+> To verificate the operation, you can call `checkDelegateForContract()`. It should return “true”. Where “from”: Delegator's address, i.e. the address from which the delegation function was called. The rest of the parameters are the same as above.
 
 ---
 
@@ -88,7 +90,7 @@ As the next step, the Delegator needs to give a permission to transfer MOR to th
 <img src="https://github.com/user-attachments/assets/4b4ce221-560e-45fe-8ac4-dadc168a95b2" width=70% height=70%>
 
 > [!TIP]
-> You can check the permission by calling the `allowance()` function, where the owner will be the user's address and the spender will be the protocol address. The result should be the amount the user is willing to invest in the protocol.
+> You can check the permission by calling the `allowance()` function, where the `owner` will be the user's (Delegator) address and the `spender` will be the Compute contract address. The result will reflect the amount the Delegator allow Delegatee to transfer to the contract.
 
 ---
 
